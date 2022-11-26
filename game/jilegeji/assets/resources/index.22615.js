@@ -9,7 +9,7 @@ System.register("chunks:///resources.js",[],(function(){"use strict";return{exec
             var _exportObj = {};
 
             for (var _key in _m) {
-              if (_key !== "default" &amp;&amp; _key !== "__esModule") _exportObj[_key] = _m[_key];
+              if (_key !== "default" && _key !== "__esModule") _exportObj[_key] = _m[_key];
             }
       
             _export(_exportObj);

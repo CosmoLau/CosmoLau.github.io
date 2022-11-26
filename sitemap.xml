@@ -55,10 +55,289 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/index.html</loc>
+    
+    <lastmod>2022-10-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/0b/0bfa9b310.16f42.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/project.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/main/import/0e/0e2bea7c0.bd80b.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/6e/6e90d066-c354-4246-8988-f8b0fc166d3c.44ee0.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/32/32c6127e-05de-43d7-9b06-871c2c7f6548.918d0.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/b5/b5249d19-d5c0-4700-a271-a215cdfd7085.8a56a.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/e4/e45395b6-652b-45fb-97ac-fd1eebe9d0f2.24674.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/84/8456e57e-1429-41e3-b385-d506ceb6c042.00bd5.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/0a/0ad586962.69ed8.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/b3/b3dd4293-0384-4374-bae7-ea47568b326c.8c371.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/0b/0bb3c7a4-0527-4697-a64a-556d539c9758.038ca.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/src/settings.d9303.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/config.22615.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/12/12877f3c-959e-46b8-8d45-9312aa2899f7.0107c.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/src/import-map.e5804.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/main/config.ff393.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/0f/0f4ad1ba4.6e9b3.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/07/07fdd2ec7.89b1a.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/2d/2d95d101-8eab-45af-9697-3e749b3ebf73.d3b16.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/eb/eb90b142-41c4-4859-a4c3-e345b1968769.6f53b.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/internal/import/08/0846c28f0.dad24.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/main/import/fd/fd8ec536-a354-4a17-9c74-4f3883c378c8.731f4.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/main/import/07/0710a7203.344b2.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/main/import/01/01cd528b7.394ee.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/main/import/0a/0adba5be2.13f6d.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/main/import/01/01b64a940.e8442.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/main/import/0a/0ad2a1e8f.661de.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/internal/config.fbd04.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/main/import/04/049ebd68a.99692.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cosmolau.top/game/jilegeji/assets/resources/import/06/06a93ac6b.3377a.json</loc>
+    
+    <lastmod>2022-10-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   <url>
     <loc>https://cosmolau.top/</loc>
-    <lastmod>2022-10-22</lastmod>
+    <lastmod>2022-11-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>

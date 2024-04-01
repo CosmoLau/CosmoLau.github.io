@@ -46,7 +46,7 @@
   
 <link rel="stylesheet" href="/css/style.css">
 
-<meta name="generator" content="Hexo 6.3.0">
+<meta name="generator" content="Hexo 7.1.1">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -164,9 +164,14 @@
       <div class="category-box">
             <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B/">
                 教程
+                <div class="category-count">2</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">
+                游戏开发
                 <div class="category-count">1</div>
             </a>
-        </div>
+        </div></div></div>
     </div>
   </div>
 
@@ -176,7 +181,7 @@
   <div class="widget-wrap">
     <div class="widget">
       <h3 class="widget-title">标签</h3>
-      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8C%87%E5%8D%97/" rel="tag">指南</a></li></ul>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Cocos-Creator/" rel="tag">Cocos Creator</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8C%87%E5%8D%97/" rel="tag">指南</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" rel="tag">插件开发</a></li></ul>
     </div>
   </div>
 
@@ -190,7 +195,7 @@
       
         <a class="archive-link" href="/archives/2024/04 ">
           四月 2024 
-          <div class="archive-count">1 </div>
+          <div class="archive-count">2 </div>
         </a>
       
     </div>
@@ -203,6 +208,12 @@
     <div class="widget">
       <h3 class="widget-title">最新文章</h3>
       <ul>
+        
+          <a class="recent-link" href="/2024/04/01/cocos-extension/" title="【从零开始的插件开发】使用 CC3.x + UI组件 + Vue3 开发一个插件" >
+            <div class="recent-link-text">
+              【从零开始的插件开发】使用 CC3.x + UI组件 + Vue3 开发一个插件
+            </div>
+          </a>
         
           <a class="recent-link" href="/2024/04/01/hello-world/" title="Hello World" >
             <div class="recent-link-text">
@@ -220,6 +231,81 @@
     </div>
     <div id="content-body">
       
+   
+
+
+<article id="post-cocos-extension" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/04/01/cocos-extension/">【从零开始的插件开发】使用 CC3.x + UI组件 + Vue3 开发一个插件</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-01T10:40:44.000Z" itemprop="datePublished">2024-04-01</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>><a class="meta-cate-link" href="/categories/%E6%95%99%E7%A8%8B/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            11k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cocos-Creator/" rel="tag">Cocos Creator</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" rel="tag">插件开发</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              前言近期发布了一个 Cocos Creator 2.4.x 的自动化插件，想移植到 3.x 版本，但 扩展编辑器 官方文档 的教程让我这种小白一言难尽，尽管我刚开发完一款 2.x 的插件，3.x 也让我折腾了很久。
+首先得吐槽一下插件开发的官方文档，感觉不如 2.x 的文档，特别是 UI 组件 文档，感觉像是随便写的，虽然可以直接在 UI 组件面板 中看到代码，但示例代码也有很多坑。而 扩展改名 这篇文档更是重量级，真的会有人需要用到这篇文档吗？不过还是叠个甲，希望只是官方没有太多精力去维护插件开发的文档。
+那么废话就到此为止，本篇文章算是个技术总结，毕竟我也算是从零开始开发的插件，踩了许多坑，虽然没啥技术力，但入门应该是够了。下面将一步一步教大家通过 CC3.x + UI组件 + Vue3 的形式开发一个简单的可视化插件。
+为何选择 Vue3 模板开发？Cocos Creator 3.x 支持创建 HTML 面板、Vue2.x 面板、Vue3.x 面板，对于有对应技术栈的开发者来说，选择对口的模板是最好的选择。但如果是一位平时只使用 Cocos Creator，不太接触其他框架...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2024/04/01/cocos-extension/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
    
 
 

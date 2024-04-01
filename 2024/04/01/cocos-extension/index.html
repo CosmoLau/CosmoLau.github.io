@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="true" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>【从零开始的插件开发】使用 CC3.x + UI组件 + Vue3 开发一个插件 | CosmoLau 的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="前言近期发布了一个 Cocos Creator 2.4.x 的自动化插件，想移植到 3.x 版本，但 扩展编辑器 官方文档 的教程让我这种小白一言难尽，尽管我刚开发完一款 2.x 的插件，3.x 也让我折腾了很久。 首先得吐槽一下插件开发的官方文档，感觉不如 2.x 的文档，特别是 UI 组件 文档，感觉像是随便写的，虽然可以直接在 UI 组件面板 中看到代码，但示例代码也有很多坑。而 扩展改名">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【从零开始的插件开发】使用 CC3.x + UI组件 + Vue3 开发一个插件">
+<meta property="og:url" content="https://cosmolau.top/2024/04/01/cocos-extension/index.html">
+<meta property="og:site_name" content="CosmoLau 的个人博客">
+<meta property="og:description" content="前言近期发布了一个 Cocos Creator 2.4.x 的自动化插件，想移植到 3.x 版本，但 扩展编辑器 官方文档 的教程让我这种小白一言难尽，尽管我刚开发完一款 2.x 的插件，3.x 也让我折腾了很久。 首先得吐槽一下插件开发的官方文档，感觉不如 2.x 的文档，特别是 UI 组件 文档，感觉像是随便写的，虽然可以直接在 UI 组件面板 中看到代码，但示例代码也有很多坑。而 扩展改名">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/extension_name.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/%E5%90%AF%E7%94%A8%E6%8F%92%E4%BB%B6.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/UI%E7%BB%84%E4%BB%B6%E9%9D%A2%E6%9D%BF.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/%E6%B3%A8%E9%87%8A%E6%8E%89%E6%A0%87%E7%AD%BE.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/ui-prop%E7%A4%BA%E4%BE%8B.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/ui-prop%E6%95%88%E6%9E%9C.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/ui-box-container.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/add_box_style.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/add_checkbox_noslot.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/add_checkbox_slot.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/%E6%89%A9%E5%B1%95%E6%95%88%E6%9E%9C01.png">
+<meta property="og:image" content="https://cosmolau.top/UI%20%E7%BB%84%E4%BB%B6%E9%9D%A2%E6%9D%BF%E6%9F%A5%E7%9C%8B%E4%BA%8B%E4%BB%B6.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/%E6%89%A9%E5%B1%95%E6%95%88%E6%9E%9C02.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/%E6%89%A9%E5%B1%95%E6%95%88%E6%9E%9C03.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/i18n%E5%85%A5%E5%8F%A3.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/logo%E5%B1%95%E7%A4%BA.png">
+<meta property="article:published_time" content="2024-04-01T10:40:44.000Z">
+<meta property="article:modified_time" content="2024-04-01T12:16:24.031Z">
+<meta property="article:author" content="Cosmo Lau">
+<meta property="article:tag" content="Cocos Creator">
+<meta property="article:tag" content="插件开发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cosmolau.top/2024/04/01/cocos-extension/extension_name.png">
+  
+    <link rel="alternate" href="/atom.xml" title="CosmoLau 的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.1.1">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body>
+  
+  
+    
+<div id="banner" class="">
+  <img src="/medias/banner_sao.jpg" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>CosmoLau 的个人博客 </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">主页</a>
+    
+      <a class="main-nav-link" href="/docs">文档</a>
+    
+      <a class="main-nav-link" href="/archives">归档</a>
+    
+      <a class="main-nav-link" href="/about">关于</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">主页</a>
+    
+      <a class="nav-dropdown-link" href="/docs">文档</a>
+    
+      <a class="nav-dropdown-link" href="/archives">归档</a>
+    
+      <a class="nav-dropdown-link" href="/about">关于</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/medias/icon.jpeg></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">CosmoLau </div>
+      <div class="dot"></div>
+      <div class="subtitle">啥也不会的卑微程序员 </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://space.bilibili.com/2260014" title="Bilibili"><i class="fa-brands fa-bilibili"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://steamcommunity.com/id/CosmoLau/" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/CosmoLau" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">分类</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B/">
+                教程
+                <div class="category-count">2</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">
+                游戏开发
+                <div class="category-count">1</div>
+            </a>
+        </div></div></div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">标签</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Cocos-Creator/" rel="tag">Cocos Creator</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8C%87%E5%8D%97/" rel="tag">指南</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" rel="tag">插件开发</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">归档</h3>
+      
+      
+        <a class="archive-link" href="/archives/2024/04 ">
+          四月 2024 
+          <div class="archive-count">2 </div>
+        </a>
+      
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">最新文章</h3>
+      <ul>
+        
+          <a class="recent-link" href="/2024/04/01/cocos-extension/" title="【从零开始的插件开发】使用 CC3.x + UI组件 + Vue3 开发一个插件" >
+            <div class="recent-link-text">
+              【从零开始的插件开发】使用 CC3.x + UI组件 + Vue3 开发一个插件
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2024/04/01/hello-world/" title="Hello World" >
+            <div class="recent-link-text">
+              Hello World
+            </div>
+          </a>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-cocos-extension" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        【从零开始的插件开发】使用 CC3.x + UI组件 + Vue3 开发一个插件
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-01T10:40:44.000Z" itemprop="datePublished">2024-04-01</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>><a class="meta-cate-link" href="/categories/%E6%95%99%E7%A8%8B/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            11k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cocos-Creator/" rel="tag">Cocos Creator</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" rel="tag">插件开发</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近期发布了一个 Cocos Creator 2.4.x 的自动化插件，想移植到 3.x 版本，但 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/readme.html">扩展编辑器 官方文档</a> 的教程让我这种小白一言难尽，尽管我刚开发完一款 2.x 的插件，3.x 也让我折腾了很久。</p>
+<p>首先得吐槽一下插件开发的官方文档，感觉不如 2.x 的文档，特别是 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/ui.html">UI 组件</a> 文档，感觉像是随便写的，虽然可以直接在 <strong>UI 组件面板</strong> 中看到代码，但示例代码也有很多坑。而 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/extension-change-name.html">扩展改名</a> 这篇文档更是重量级，真的会有人需要用到这篇文档吗？不过还是叠个甲，希望只是官方没有太多精力去维护插件开发的文档。</p>
+<p>那么废话就到此为止，本篇文章算是个技术总结，毕竟我也算是从零开始开发的插件，踩了许多坑，虽然没啥技术力，但入门应该是够了。下面将一步一步教大家通过 CC3.x + UI组件 + Vue3 的形式开发一个简单的可视化插件。</p>
+<h2 id="为何选择-Vue3-模板开发？"><a href="#为何选择-Vue3-模板开发？" class="headerlink" title="为何选择 Vue3 模板开发？"></a>为何选择 Vue3 模板开发？</h2><p>Cocos Creator 3.x 支持创建 <code>HTML 面板</code>、<code>Vue2.x 面板</code>、<code>Vue3.x 面板</code>，对于有对应技术栈的开发者来说，选择对口的模板是最好的选择。但如果是一位平时只使用 Cocos Creator，不太接触其他框架的小白来说（比如我），不妨选择最新的技术栈，这样能通过学习插件开发的同时，了解下 Vue3 的基础概念（<del>如果以后不做 Cocos 了，方便快速转行</del>）。</p>
+<p>当然，我也是一个 Vue3 入门的新手，对 Vue3 理解不够透彻，文章中会大量引用 <a target="_blank" rel="noopener" href="https://cn.vuejs.org/">Vue3 官方文档</a> 的内容来进行解释，同时也引用了大量的 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/readme.html">扩展编辑器 官方文档</a> 来解释，本篇文章只能算是官方文档的补充说明。（<del>并不是真的教官方写文档</del>）</p>
+<h2 id="创建扩展"><a href="#创建扩展" class="headerlink" title="创建扩展"></a>创建扩展</h2><p>首先我们通过 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/create-extension.html">扩展模板与编译构建</a> 文档中的方法来创建一个 <strong>Vue3.x 面板</strong> 扩展，我们将 <code>扩展名</code> 改为 <code>extension-vue</code>，方便后面讲解。</p>
+<p><img src="/2024/04/01/cocos-extension/extension_name.png" alt="创建扩展面板"></p>
+<p>创建完成后，在项目工程的 <code>extensions</code> 文件夹中会生成这么一个目录结构：</p>
+<p><img src="/2024/04/01/cocos-extension/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" alt="扩展目录结构"></p>
+<p>目录结构的详细解释，在 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/first.html#%E6%89%A9%E5%B1%95%E7%9B%AE%E5%BD%95">目录结构</a> 中有记载，包括 <code>package.json</code> 的字段含义，也在同一篇文档中。</p>
+<p>此时已经创建好了一个扩展模板，需要按照 <code>README.zh-CN.md</code> 中的方法来安装 <strong>npm 依赖</strong>。</p>
+<blockquote>
+<p><em>注意</em>：使用 npm 需要安装 <a target="_blank" rel="noopener" href="https://nodejs.org/en">Nodejs</a> 环境，如果你还没有安装，推荐 Windows 开发者安装 <a target="_blank" rel="noopener" href="https://github.com/coreybutler/nvm-windows">NVM for Windows</a> 方便进行 Nodejs 的版本管理。（<del>总有一天会需要用到切换版本的功能</del>）</p>
+</blockquote>
+<p>安装 <strong>npm 依赖</strong> 需要打开终端来执行命令，如果你对终端的用法不了解，可以在 VSCode 中使用快捷键 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>`</kbd> 来打开，然后以此执行以下命令：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换到扩展目录下</span></span><br><span class="line"><span class="built_in">cd</span> .\extensions\extension-vue\</span><br><span class="line"><span class="comment"># 安装 npm 依赖</span></span><br><span class="line">npm install</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后我们回到 Cocos Creator 编辑器，在 <code>扩展</code> -&gt; <code>扩展管理器</code> -&gt; <code>已安装扩展</code> 中启用创建好的扩展。</p>
+<blockquote>
+<p><em>提示</em>：在开发插件的过程中如果遇到数据没刷新之类的问题，可以使用此方法来重新关闭开启插件，以重新加载插件。</p>
+</blockquote>
+<p><img src="/2024/04/01/cocos-extension/%E5%90%AF%E7%94%A8%E6%8F%92%E4%BB%B6.png" alt="启用插件"></p>
+<p>接着就能通过 <code>面板</code> -&gt; <code>extension-vue</code> -&gt; <code>默认面板</code> 打开扩展模板面板，此时已经完成了扩展的创建。</p>
+<h2 id="使用-UI-组件布局"><a href="#使用-UI-组件布局" class="headerlink" title="使用 UI 组件布局"></a>使用 UI 组件布局</h2><p>面板布局主要在 <code>extension-vue/static/template/default/index.html</code> 中进行修改，下面统一用 <strong>index.html</strong> 来代指。</p>
+<p>如果需要添加 CSS 样式，可以在 <code>extension-vue/static/style/default/index.css</code> 中进行添加，下面统一用 <strong>index.css</strong> 来代指。</p>
+<p>我们根据 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/ui.html">UI 组件</a> 文档的步骤，通过 <code>开发者</code> -&gt; <code>UI 组件</code> 来打开 <strong>UI 组件面板</strong>，这个面板里的参考代码很重要（也有很多坑），我们整个开发过程中都会用到，可以一直开着这个面板。</p>
+<p><img src="/2024/04/01/cocos-extension/UI%E7%BB%84%E4%BB%B6%E9%9D%A2%E6%9D%BF.png" alt="UI组件面板"></p>
+<p>我们回到 <strong>index.html</strong> 中，我们先将 <code>&lt;my-counter&gt;&lt;/my-counter&gt;</code> 和 <code>&lt;h1 id="text"&gt;&lt;/h1&gt;</code> 注释掉，接下来要添加的所有 UI 组件标签都需要写在 <code>&lt;div id="app"&gt;&lt;/div&gt;</code> 标签内。</p>
+<p><img src="/2024/04/01/cocos-extension/%E6%B3%A8%E9%87%8A%E6%8E%89%E6%A0%87%E7%AD%BE.png" alt="注释掉标签"></p>
+<p>接下来我们尝试用 UI 组件拼出一个界面来。</p>
+<h3 id="使用-ui-prop-组件"><a href="#使用-ui-prop-组件" class="headerlink" title="使用 ui-prop 组件"></a>使用 ui-prop 组件</h3><p>ui-prop 组件能让可视化界面有一个整洁的排版，是很适合用来设置布局的组件。</p>
+<p>我们先来看一下 UI 组件面板中的 <code>layout</code> -&gt; <code>ui-prop</code> 组件示例：</p>
+<p><img src="/2024/04/01/cocos-extension/ui-prop%E7%A4%BA%E4%BE%8B.png" alt="ui-prop示例"></p>
+<p>先将第一个示例添加到 <strong>index.html</strong> 的 app 标签中，并且添加一个 <code>&lt;h1&gt;&lt;/h1&gt;</code> 标签来作为面板的标题。</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 所有 UI 组件写在 &lt;div id="app"&gt;&lt;/div&gt; 标签内 --&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Extension Vue<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-label</span> <span class="attr">slot</span>=<span class="string">"label"</span>&gt;</span>Checkbox<span class="tag">&lt;/<span class="name">ui-label</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-checkbox</span> <span class="attr">slot</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">ui-checkbox</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-label</span> <span class="attr">slot</span>=<span class="string">"label"</span>&gt;</span>Name<span class="tag">&lt;/<span class="name">ui-label</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-input</span> <span class="attr">slot</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">ui-input</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-label</span> <span class="attr">slot</span>=<span class="string">"label"</span>&gt;</span>Color<span class="tag">&lt;/<span class="name">ui-label</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-color</span> <span class="attr">slot</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">ui-color</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-label</span> <span class="attr">slot</span>=<span class="string">"label"</span>&gt;</span>Select<span class="tag">&lt;/<span class="name">ui-label</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-select</span> <span class="attr">slot</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"1"</span>&gt;</span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit, sint.<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"2"</span>&gt;</span>Sapiente ratione esse voluptatibus repudiandae illo numquam quas nulla id.<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ui-select</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ui-prop</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后我们通过 <code>面板</code> -&gt; <code>extension-vue</code> -&gt; <code>默认面板</code> 来查看面板效果：</p>
+<p><img src="/2024/04/01/cocos-extension/ui-prop%E6%95%88%E6%9E%9C.png" alt="ui-prop效果"></p>
+<p>这样看起来不太美观，标题可以居中显示，而且 <code>ui-prop</code> 之间得加点间距。</p>
+<p>3.x 版本的 UI 组件没有 2.x 的 <code>ui-box-container</code> 组件来框柱 <code>ui-prop</code>，看起来也不太好看，来看看 2.x 的效果：</p>
+<p><img src="/2024/04/01/cocos-extension/ui-box-container.png" alt="2.x ui-box-container"></p>
+<p>既然 3.x 没有，那我们就用 CSS 来实现一个，在 <strong>index.css</strong> 中添加以下样式：</p>
+<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* index.css */</span></span><br><span class="line"><span class="selector-tag">h1</span> {</span><br><span class="line">    <span class="comment">/* 文本居中 */</span></span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">}</span><br><span class="line"><span class="selector-class">.box</span> {</span><br><span class="line">    <span class="comment">/* 外边距 10px */</span></span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="comment">/* 内边距 5px */</span></span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="comment">/* 虚线边框 */</span></span><br><span class="line">    <span class="attribute">border-style</span>: dashed;</span><br><span class="line">    <span class="comment">/* 边框宽度 1px */</span></span><br><span class="line">    <span class="attribute">border-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="comment">/* 边框颜色为灰色 */</span></span><br><span class="line">    <span class="attribute">border-color</span>: gray;</span><br><span class="line">}</span><br><span class="line">ui-prop {</span><br><span class="line">    <span class="comment">/* 添加上边距 5px */</span></span><br><span class="line">    <span class="attribute">margin-top</span>: <span class="number">5px</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后我们将所有 <code>ui-prop</code> 组件添加到一对 <code>&lt;div&gt;&lt;/div&gt;</code> 标签中，并为 div 添加 css 中定义的 box 样式。</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 所有 UI 组件写在 &lt;div id="app"&gt;&lt;/div&gt; 标签内 --&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Extension Vue<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ui-label</span> <span class="attr">slot</span>=<span class="string">"label"</span>&gt;</span>Checkbox<span class="tag">&lt;/<span class="name">ui-label</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ui-checkbox</span> <span class="attr">slot</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">ui-checkbox</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">            </span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ui-label</span> <span class="attr">slot</span>=<span class="string">"label"</span>&gt;</span>Name<span class="tag">&lt;/<span class="name">ui-label</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ui-input</span> <span class="attr">slot</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">ui-input</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">            </span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ui-label</span> <span class="attr">slot</span>=<span class="string">"label"</span>&gt;</span>Color<span class="tag">&lt;/<span class="name">ui-label</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ui-color</span> <span class="attr">slot</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">ui-color</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">            </span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ui-label</span> <span class="attr">slot</span>=<span class="string">"label"</span>&gt;</span>Select<span class="tag">&lt;/<span class="name">ui-label</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ui-select</span> <span class="attr">slot</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"1"</span>&gt;</span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit, sint.<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"2"</span>&gt;</span>Sapiente ratione esse voluptatibus repudiandae illo numquam quas nulla id.<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">ui-select</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>这样，我们的面板就变得整洁了起来：</p>
+<p><img src="/2024/04/01/cocos-extension/add_box_style.png" alt="add_box_style"></p>
+<blockquote>
+<p><em>注意</em>：编写好 html 后，需要关闭面板重新打开才能看到修改后的内容。</p>
+</blockquote>
+<p>使用 <code>ui-prop</code> 时需要注意 slot 的用法，<code>slot="label"</code> 的组件会放到 <code>ui-prop</code> 左边的显示区域，<code>slot="content"</code> 则是显示在右边的显示区域，如果在 <code>ui-prop</code> 标签对中添加元素而不使用 <code>slot</code> 属性的话，就会被另起一行显示。</p>
+<p>如果我们想在 Checkbox 的 <code>ui-prop</code> 中再添加一个 <code>ui-checkbox</code> 元素，且不添加 <code>slot</code> 属性的话，就会变成如下的效果：</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ui-label</span> <span class="attr">slot</span>=<span class="string">"label"</span>&gt;</span>Checkbox<span class="tag">&lt;/<span class="name">ui-label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ui-checkbox</span> <span class="attr">slot</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">ui-checkbox</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ui-checkbox</span>&gt;</span><span class="tag">&lt;/<span class="name">ui-checkbox</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="/2024/04/01/cocos-extension/add_checkbox_noslot.png" alt="add_checkbox_noSlot"></p>
+<p>所以正确的做法应该是：</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ui-label</span> <span class="attr">slot</span>=<span class="string">"label"</span>&gt;</span>Checkbox<span class="tag">&lt;/<span class="name">ui-label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ui-checkbox</span> <span class="attr">slot</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">ui-checkbox</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ui-checkbox</span> <span class="attr">slot</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">ui-checkbox</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="/2024/04/01/cocos-extension/add_checkbox_slot.png" alt="add_checkbox_noSlot"></p>
+<blockquote>
+<p><em>吐槽</em>：UI 组件面板中的示例代码很好，但是详细解释太少了，要么就应该像 2.x 一样在官方文档中详细写出每个属性的用法。</p>
+</blockquote>
+<p>至此，我们已经尝试使用 UI 组件、HTML 原生标签、CSS 样式来完成基本的面板布局，接下来就可以靠搭积木的方式打造自己的扩展面板了。</p>
+<p>如果对 HTML 和 CSS 不熟悉，或者已经忘得差不多了，可以到 <a target="_blank" rel="noopener" href="https://www.w3school.com.cn/">W3school 官网</a> 找你想要的内容。</p>
+<h2 id="使用-Vue3-的特性"><a href="#使用-Vue3-的特性" class="headerlink" title="使用 Vue3 的特性"></a>使用 Vue3 的特性</h2><p>我们来做一个根据扩展名来统计文件数量的扩展。</p>
+<h3 id="编写逻辑代码"><a href="#编写逻辑代码" class="headerlink" title="编写逻辑代码"></a>编写逻辑代码</h3><p>先打开 <code>extension-vue/src/panels/default/index.ts</code>，这是面板的入口文件。</p>
+<p>在模板代码中，我们主要修改 <code>ready</code> 函数中的内容，<code>ready</code> 函数是面板启动后触发的钩子函数。</p>
+<p>在 <code>ready</code> 函数体中，有如下的代码：</p>
+<figure class="highlight typescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> { createApp } <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">Editor</span>.<span class="property">Panel</span>.<span class="title function_">define</span>({</span><br><span class="line">    <span class="attr">$</span>: {</span><br><span class="line">        <span class="attr">app</span>: <span class="string">'#app'</span>,</span><br><span class="line">    },</span><br><span class="line">    <span class="title function_">ready</span>(<span class="params"></span>) {</span><br><span class="line">        <span class="keyword">const</span> app = <span class="title function_">createApp</span>({});</span><br><span class="line">        app.<span class="title function_">mount</span>(<span class="variable language_">this</span>.<span class="property">$</span>.<span class="property">app</span>);</span><br><span class="line">    }</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这段代码的意思就是创建一个 <strong>Vue App</strong> 挂载到 <code>#app</code> 标签上，就是为什么我们在 <code>index.html</code> 中需要把布局写到 <code>&lt;div id="app"&gt;&lt;/div&gt;</code> 标签对中的原因。</p>
+<p>在这篇演示中，我们的逻辑代码主要写在 <code>createApp({})</code> 中。</p>
+<p>首先我们定义两个数据，用于存放每个扩展名对应的文件数量和文件的总数量：</p>
+<figure class="highlight typescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">createApp</span>({</span><br><span class="line">    <span class="title function_">data</span>(<span class="params"></span>) {</span><br><span class="line">        <span class="keyword">return</span> {</span><br><span class="line">            <span class="comment">/** 扩展名对应的文件数量 */</span></span><br><span class="line">            <span class="attr">fileCount</span>: {},</span><br><span class="line">            <span class="comment">/** 文件总数量 */</span></span><br><span class="line">            <span class="attr">fileNum</span>: <span class="number">0</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p>接着我们来写主要的逻辑，将写在 <code>methods: {}</code> 中，<code>data</code> 中定义的数据我们可以通过 <code>this.xxx</code> 取到。</p>
+<figure class="highlight typescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> { readdirSync, readFileSync, statSync } <span class="keyword">from</span> <span class="string">'fs-extra'</span>;</span><br><span class="line"><span class="keyword">import</span> { extname, join } <span class="keyword">from</span> <span class="string">'path'</span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="title function_">createApp</span>({</span><br><span class="line">    <span class="title function_">data</span>(<span class="params"></span>) {</span><br><span class="line">        <span class="keyword">return</span> {</span><br><span class="line">            <span class="comment">/** 扩展名对应的文件数量 */</span></span><br><span class="line">            <span class="attr">fileCount</span>: {},</span><br><span class="line">            <span class="comment">/** 文件总数量 */</span></span><br><span class="line">            <span class="attr">fileNum</span>: <span class="number">0</span></span><br><span class="line">        }</span><br><span class="line">    },</span><br><span class="line">    <span class="attr">methods</span>: {</span><br><span class="line">        <span class="title function_">checkAssets</span>(<span class="params"></span>) {</span><br><span class="line">            <span class="comment">// 定义两个数据的临时变量</span></span><br><span class="line">            <span class="keyword">let</span> <span class="attr">fileCount</span>: {[<span class="attr">key</span>: <span class="built_in">string</span>]: <span class="built_in">number</span>} = {};</span><br><span class="line">            <span class="keyword">let</span> fileNum = <span class="number">0</span>;</span><br><span class="line">            <span class="comment">// 获取 assets 文件夹的路径</span></span><br><span class="line">            <span class="keyword">let</span> assetsPath = <span class="title function_">join</span>(<span class="title class_">Editor</span>.<span class="property">Project</span>.<span class="property">path</span>, <span class="string">"assets"</span>);</span><br><span class="line">            <span class="keyword">let</span> <span class="title function_">checkDir</span> = (<span class="params">dirPath: <span class="built_in">string</span></span>) =&gt; {</span><br><span class="line">                <span class="comment">// 获取文件夹下所有的文件名</span></span><br><span class="line">                <span class="keyword">let</span> files = <span class="title function_">readdirSync</span>(dirPath);</span><br><span class="line">                <span class="comment">// 遍历文件名</span></span><br><span class="line">                files.<span class="title function_">forEach</span>(<span class="function">(<span class="params">fileName</span>) =&gt;</span> {</span><br><span class="line">                    <span class="comment">// 当前文件的路径</span></span><br><span class="line">                    <span class="keyword">let</span> subPath = <span class="title function_">join</span>(dirPath, fileName);</span><br><span class="line">                    <span class="comment">// 文件的信息</span></span><br><span class="line">                    <span class="keyword">let</span> stat = <span class="title function_">statSync</span>(subPath);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (stat.<span class="title function_">isDirectory</span>()) {</span><br><span class="line">                        <span class="comment">// 如果文件是个目录，递归查找</span></span><br><span class="line">                        <span class="title function_">checkDir</span>(subPath);</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (stat.<span class="title function_">isFile</span>()) {</span><br><span class="line">                        <span class="comment">// 获取文件的扩展名</span></span><br><span class="line">                        <span class="keyword">let</span> extName = <span class="title function_">extname</span>(fileName);</span><br><span class="line">                        <span class="keyword">if</span> (extName != <span class="string">""</span> &amp;&amp; !fileCount[extName]) {</span><br><span class="line">                            fileCount[extName] = <span class="number">1</span>;</span><br><span class="line">                        }</span><br><span class="line">                        <span class="keyword">else</span> <span class="keyword">if</span> (extName != <span class="string">""</span> &amp;&amp; fileCount[extName]) {</span><br><span class="line">                            fileCount[extName] += <span class="number">1</span>;</span><br><span class="line">                        }</span><br><span class="line">                        <span class="keyword">else</span> {</span><br><span class="line">                            <span class="keyword">if</span> (fileCount[<span class="string">"other"</span>]) {</span><br><span class="line">                                fileCount[<span class="string">"other"</span>] += <span class="number">1</span>;</span><br><span class="line">                            }</span><br><span class="line">                            <span class="keyword">else</span> {</span><br><span class="line">                                fileCount[<span class="string">"other"</span>] = <span class="number">1</span>;</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                        fileNum++;</span><br><span class="line">                    }</span><br><span class="line">                })</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="title function_">checkDir</span>(assetsPath);</span><br><span class="line">            <span class="comment">// 将临时变量赋值给 data 中定义的变量</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">fileCount</span> = fileCount;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">fileNum</span> = fileNum;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p>代码中我们用到了 <code>Editor.Project.path</code> 接口，用来获取项目目录路径，可以查看 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/editor-api.html">Editor API 说明</a> 文档来查询需要的功能。</p>
+<p>我们这段逻辑需要在面板打开时就执行，所以我们需要用到 <a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/essentials/lifecycle.html">生命周期钩子</a> 中的 <code>beforeMount</code> 生命周期：</p>
+<figure class="highlight typescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="title function_">createApp</span>({</span><br><span class="line">    <span class="title function_">data</span>(<span class="params"></span>) {</span><br><span class="line">        <span class="keyword">return</span> {</span><br><span class="line">            <span class="comment">/** 扩展名对应的文件数量 */</span></span><br><span class="line">            <span class="attr">fileCount</span>: {},</span><br><span class="line">            <span class="comment">/** 文件总数量 */</span></span><br><span class="line">            <span class="attr">fileNum</span>: <span class="number">0</span></span><br><span class="line">        }</span><br><span class="line">    },</span><br><span class="line">    <span class="attr">methods</span>: {</span><br><span class="line">        <span class="title function_">checkAssets</span>(<span class="params"></span>) {</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        }</span><br><span class="line">    },</span><br><span class="line">    <span class="comment">// 挂载应用之前</span></span><br><span class="line">    <span class="title function_">beforeMount</span>(<span class="params"></span>) {</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">checkAssets</span>();</span><br><span class="line">    }</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这样，我们的逻辑代码就写好了。</p>
+<blockquote>
+<p><em>重要</em>：TS 代码需要通过 tsc 命令编译成 JS 代码才能在扩展中生效，可以在终端中执行命令 <code>npm run build</code>，来编译 TS 脚本，或者执行 <code>npm run watch</code> 来监听 TS 脚本的变化，自动编译。</p>
+</blockquote>
+<h3 id="使用-Vue3-来布局"><a href="#使用-Vue3-来布局" class="headerlink" title="使用 Vue3 来布局"></a>使用 Vue3 来布局</h3><p>我们要对 <code>index.html</code> 进行重新布局，先删除掉之前的 UI 组件示例代码，我们重新编写一套：</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Extension Vue<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-prop</span> <span class="attr">v-for</span>=<span class="string">"(value, key) in fileCount"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ui-label</span> <span class="attr">slot</span>=<span class="string">"label"</span>&gt;</span>{{ key }}<span class="tag">&lt;/<span class="name">ui-label</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ui-input</span> </span></span><br><span class="line"><span class="tag">                    <span class="attr">slot</span>=<span class="string">"content"</span> </span></span><br><span class="line"><span class="tag">                    <span class="attr">readonly</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">:value</span>=<span class="string">"value"</span></span></span><br><span class="line"><span class="tag">                &gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">slot</span>=<span class="string">"suffix"</span>&gt;</span>个文件<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">ui-input</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ui-prop</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-prop</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ui-label</span> <span class="attr">slot</span>=<span class="string">"label"</span>&gt;</span>总计<span class="tag">&lt;/<span class="name">ui-label</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ui-input</span> </span></span><br><span class="line"><span class="tag">                    <span class="attr">slot</span>=<span class="string">"content"</span> </span></span><br><span class="line"><span class="tag">                    <span class="attr">readonly</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">:value</span>=<span class="string">"fileNum"</span></span></span><br><span class="line"><span class="tag">                &gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">slot</span>=<span class="string">"suffix"</span>&gt;</span>个文件<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">ui-input</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ui-prop</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>这里我们用到了 <a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/essentials/list.html">列表渲染</a> 中的 <code>v-for</code> 来显示出所有扩展名对应的文件数量。</p>
+<p><code>:value</code> 是 <code>v-bind:value</code> 的简写，详情可参考 <a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/essentials/template-syntax.html#attribute-bindings">Attribute 绑定</a>，通过这个方法，我们将 <code>data</code> 中定义的两个值绑定到 <code>ui-input</code> 标签的 <code>value</code> 属性上。</p>
+<p>这样，我们基本算是完成了这个插件的主要功能，让我们通过 <code>面板</code> -&gt; <code>extension-vue</code> -&gt; <code>默认面板</code> 打开面板看看效果吧：</p>
+<p><img src="/2024/04/01/cocos-extension/%E6%89%A9%E5%B1%95%E6%95%88%E6%9E%9C01.png" alt="扩展效果01"></p>
+<p>看来 Cocos Creator 3.7.3 的 Hello World 模板项目的 Assets 文件夹下有 58 个文件。</p>
+<h3 id="来点交互"><a href="#来点交互" class="headerlink" title="来点交互"></a>来点交互</h3><p>我们这个扩展有个问题，他只能在打开面板的时候统计文件数量，如果我们在不关闭面板的情况下增删 Assets 目录中的文件，面板上的数据就不会刷新，我们为面板加一个按钮来手动刷新数据。</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Extension Vue<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"text-align: center;"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ui-button</span> <span class="attr">type</span>=<span class="string">"primary"</span> @<span class="attr">confirm</span>=<span class="string">"checkAssets"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ui-icon</span> <span class="attr">value</span>=<span class="string">"refresh"</span>&gt;</span><span class="tag">&lt;/<span class="name">ui-icon</span>&gt;</span></span><br><span class="line">                刷新</span><br><span class="line">            <span class="tag">&lt;/<span class="name">ui-button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>这里我们用到了 <a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/essentials/event-handling.html">事件处理</a>，使用 <code>@confirm</code> 绑定了 <code>checkAssets</code> 函数，UI 组件支持的事件我们可以在 <strong>UI 组件面板</strong> 中查看：</p>
+<p><img src="/UI%20%E7%BB%84%E4%BB%B6%E9%9D%A2%E6%9D%BF%E6%9F%A5%E7%9C%8B%E4%BA%8B%E4%BB%B6.png" alt="UI 组件面板查看事件"></p>
+<p>其中 <strong>Events</strong> 就是该组件支持的事件名，示例代码也给出了 Vue 的写法。</p>
+<blockquote>
+<p><em>吐槽</em>：Vue 示例代码中应该是用 <code>methods: {}</code>，不要将 Vue 示例代码原封不动的 Copy 到脚本里，会变得不幸。</p>
+</blockquote>
+<p>在这段代码中，我们将 <code>ui-button</code> 也装进了一个 div 中，我们可以直接在标签中添加 <code>style</code> 属性更改标签的样式，但如果 <code>style</code> 内容较多，建议还是写在 <code>index.css</code> 中。</p>
+<p>我们关闭面板，重新打开看看效果：</p>
+<p><img src="/2024/04/01/cocos-extension/%E6%89%A9%E5%B1%95%E6%95%88%E6%9E%9C02.png" alt="扩展效果02"></p>
+<p>仍然是 58 个文件。（<del>废话</del>）</p>
+<p>不要关闭面板，我们在编辑器的资源管理器中添加一个名为 <code>script</code> 的文件夹，并创建一个 TypeScript 脚本文件，叫 <strong>HelloWorld</strong></p>
+<p><img src="/2024/04/01/cocos-extension/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8.png" alt="资源管理器"></p>
+<p>这时，我们点击 <code>extension-vue</code> 面板中的 <strong>刷新</strong> 按钮。</p>
+<p><img src="/2024/04/01/cocos-extension/%E6%89%A9%E5%B1%95%E6%95%88%E6%9E%9C03.png" alt="扩展效果03"></p>
+<p>我们发现多了一个 .ts 类型文件，但是总计比之前多了 3 个，另外两个文件分别是 <code>script.meta</code> 和 <code>HelloWorld.ts.meta</code> 文件，这是编辑器自动生成的文件。</p>
+<p>至此，你已经尝试了 <code>HTML</code>、<code>CSS</code>、<code>UI 组件</code>、<code>Vue3 列表渲染</code>、<code>Vue3 事件处理</code>、<code>Vue3 生命周期</code>、<code>Editor 接口调用</code> 等内容，相信你对 Cocos 扩展已经有了初步的了解。如果仍有疑问，请积极回帖探讨，我是个插件开发的萌新，本篇文章只是个人的经验总结，如果能让你入门插件开发，那是我的荣幸。</p>
+<p>插件开发时，请灵活运用相关的文档：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/readme.html">扩展编辑器</a></li>
+<li><a target="_blank" rel="noopener" href="https://cn.vuejs.org/">Vue.js</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/">W3school</a></li>
+</ul>
+<blockquote>
+<p><em>吐槽</em>：官方文档里是有 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/i18n.html">多语言系统（i18n）</a> 文档的，但是这篇文档的入口被隐藏在了 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/basic.html">基础功能</a> 页面中，侧边栏找不到这个 i18n 文档的入口，而且 <strong>基础功能</strong> 文档，在侧边栏是叫 <strong>扩展功能详解</strong>，真的迷惑……</p>
+</blockquote>
+<p><img src="/2024/04/01/cocos-extension/i18n%E5%85%A5%E5%8F%A3.png" alt="i18n文档入口"></p>
+<h3 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h3><p>在扩展根目录中放入一个 PNG 格式的图片资源，命名为 <code>logo.png</code>，就能在扩展管理器中显示 LOGO 啦。</p>
+<p><img src="/2024/04/01/cocos-extension/logo%E5%B1%95%E7%A4%BA.png" alt="logo展示"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>插件开发的意义在于实现自动化，可以解放部分重复的工作，降低重复工作导致的人工犯错几率，作为程序员，就应该使用程序来帮助自己提高效率（<del>这样才能更好的摸鱼</del>）。</p>
+<p>官方在插件开发的文档方面，从 2.x 开始一直都不太完善，感觉都是徒有文档，入门还是得自己摸索，希望有朝一日能有更完善的插件开发文档。</p>
+<p>本篇内容中编写好的插件已经开源到 <a target="_blank" rel="noopener" href="https://github.com/CosmoLau/extension-vue">GitHub 仓库</a>，需要的话请移步仓库查看。</p>
+<p>另外，如果本篇文章并不能让你入门插件开发，论坛中也有其他大佬写的开发指南，可以参考他们的帖子：</p>
+<p><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/topic/144174">[muzzik 教程]：3.x 插件开发指南</a><br><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/muzzik/99553">【muzzik教程】：插件开发之道</a><br><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/topic/122964">手把手教你如何使用 rollup + vue单文件 工作流开发 3.x 插件</a><br><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/topic/149927">【插件开发】升级Vue2.x+Element-ui+组件式开发Creator2.x</a></p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left  disabled "
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2024/04/01/hello-world/"
+      title="Hello World"
+     >
+
+    <p class="title-text">
+      
+        Hello World
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 CosmoLau<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>

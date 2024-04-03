@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 
-<html theme="dark" showBanner="true" hasBanner="true" > 
+<html theme="dark" showBanner="true" hasBanner="desktop" > 
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
@@ -20,38 +20,21 @@
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="前言近期发布了一个 Cocos Creator 2.4.x 的自动化插件，想移植到 3.x 版本，但 扩展编辑器 官方文档 的教程让我这种小白一言难尽，尽管我刚开发完一款 2.x 的插件，3.x 也让我折腾了很久。 首先得吐槽一下插件开发的官方文档，感觉不如 2.x 的文档，特别是 UI 组件 文档，感觉像是随便写的，虽然可以直接在 UI 组件面板 中看到代码，但示例代码也有很多坑。而 扩展改名">
+  <meta name="description" content="视频教程   前言近期发布了一个 Cocos Creator 2.4.x 的自动化插件，想移植到 3.x 版本，但 扩展编辑器 官方文档 的教程让我这种小白一言难尽，尽管我刚开发完一款 2.x 的插件，3.x 也让我折腾了很久。 首先得吐槽一下插件开发的官方文档，感觉不如 2.x 的文档，特别是 UI 组件 文档，感觉像是随便写的，虽然可以直接在 UI 组件面板 中看到代码，但示例代码也有很多坑">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【从零开始的插件开发】使用 CC3.x + UI组件 + Vue3 开发一个插件">
 <meta property="og:url" content="https://cosmolau.top/2024/04/01/cocos-extension/index.html">
 <meta property="og:site_name" content="CosmoLau 的个人博客">
-<meta property="og:description" content="前言近期发布了一个 Cocos Creator 2.4.x 的自动化插件，想移植到 3.x 版本，但 扩展编辑器 官方文档 的教程让我这种小白一言难尽，尽管我刚开发完一款 2.x 的插件，3.x 也让我折腾了很久。 首先得吐槽一下插件开发的官方文档，感觉不如 2.x 的文档，特别是 UI 组件 文档，感觉像是随便写的，虽然可以直接在 UI 组件面板 中看到代码，但示例代码也有很多坑。而 扩展改名">
+<meta property="og:description" content="视频教程   前言近期发布了一个 Cocos Creator 2.4.x 的自动化插件，想移植到 3.x 版本，但 扩展编辑器 官方文档 的教程让我这种小白一言难尽，尽管我刚开发完一款 2.x 的插件，3.x 也让我折腾了很久。 首先得吐槽一下插件开发的官方文档，感觉不如 2.x 的文档，特别是 UI 组件 文档，感觉像是随便写的，虽然可以直接在 UI 组件面板 中看到代码，但示例代码也有很多坑">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/extension_name.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/%E5%90%AF%E7%94%A8%E6%8F%92%E4%BB%B6.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/UI%E7%BB%84%E4%BB%B6%E9%9D%A2%E6%9D%BF.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/%E6%B3%A8%E9%87%8A%E6%8E%89%E6%A0%87%E7%AD%BE.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/ui-prop%E7%A4%BA%E4%BE%8B.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/ui-prop%E6%95%88%E6%9E%9C.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/ui-box-container.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/add_box_style.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/add_checkbox_noslot.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/add_checkbox_slot.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/%E6%89%A9%E5%B1%95%E6%95%88%E6%9E%9C01.png">
-<meta property="og:image" content="https://cosmolau.top/UI%20%E7%BB%84%E4%BB%B6%E9%9D%A2%E6%9D%BF%E6%9F%A5%E7%9C%8B%E4%BA%8B%E4%BB%B6.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/%E6%89%A9%E5%B1%95%E6%95%88%E6%9E%9C02.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/%E6%89%A9%E5%B1%95%E6%95%88%E6%9E%9C03.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/i18n%E5%85%A5%E5%8F%A3.png">
-<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/logo%E5%B1%95%E7%A4%BA.png">
+<meta property="og:image" content="https://cosmolau.top/2024/04/01/cocos-extension/medias/cocos-extension-cover.jpg">
 <meta property="article:published_time" content="2024-04-01T10:40:44.000Z">
-<meta property="article:modified_time" content="2024-04-01T12:16:24.031Z">
+<meta property="article:modified_time" content="2024-04-03T12:05:04.530Z">
 <meta property="article:author" content="Cosmo Lau">
 <meta property="article:tag" content="Cocos Creator">
 <meta property="article:tag" content="插件开发">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cosmolau.top/2024/04/01/cocos-extension/extension_name.png">
+<meta name="twitter:image" content="https://cosmolau.top/2024/04/01/cocos-extension/medias/cocos-extension-cover.jpg">
   
     <link rel="alternate" href="/atom.xml" title="CosmoLau 的个人博客" type="application/atom+xml">
   
@@ -260,6 +243,16 @@
 <article id="post-cocos-extension" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
     
+<div class="article-gallery">
+  <div class="article-gallery-photos">
+    
+      <a class="article-gallery-img" rel="gallery_clujonrq90001s8vb68t8gvkt">
+        <img src="/medias/cocos-extension-cover.jpg" itemprop="image">
+      </a>
+    
+  </div>
+</div>
+
    
   <div class="article-inner">
     <div class="article-main">
@@ -298,7 +291,11 @@
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近期发布了一个 Cocos Creator 2.4.x 的自动化插件，想移植到 3.x 版本，但 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/readme.html">扩展编辑器 官方文档</a> 的教程让我这种小白一言难尽，尽管我刚开发完一款 2.x 的插件，3.x 也让我折腾了很久。</p>
+          <blockquote>
+<p>视频教程</p>
+<iframe src="//player.bilibili.com/player.html?aid=357514260&amp;bvid=BV1VX4y1t7tH&amp;cid=1170026892&amp;p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="400px"></iframe>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近期发布了一个 Cocos Creator 2.4.x 的自动化插件，想移植到 3.x 版本，但 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/readme.html">扩展编辑器 官方文档</a> 的教程让我这种小白一言难尽，尽管我刚开发完一款 2.x 的插件，3.x 也让我折腾了很久。</p>
 <p>首先得吐槽一下插件开发的官方文档，感觉不如 2.x 的文档，特别是 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/ui.html">UI 组件</a> 文档，感觉像是随便写的，虽然可以直接在 <strong>UI 组件面板</strong> 中看到代码，但示例代码也有很多坑。而 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/editor/extension/extension-change-name.html">扩展改名</a> 这篇文档更是重量级，真的会有人需要用到这篇文档吗？不过还是叠个甲，希望只是官方没有太多精力去维护插件开发的文档。</p>
 <p>那么废话就到此为止，本篇文章算是个技术总结，毕竟我也算是从零开始开发的插件，踩了许多坑，虽然没啥技术力，但入门应该是够了。下面将一步一步教大家通过 CC3.x + UI组件 + Vue3 的形式开发一个简单的可视化插件。</p>
 <h2 id="为何选择-Vue3-模板开发？"><a href="#为何选择-Vue3-模板开发？" class="headerlink" title="为何选择 Vue3 模板开发？"></a>为何选择 Vue3 模板开发？</h2><p>Cocos Creator 3.x 支持创建 <code>HTML 面板</code>、<code>Vue2.x 面板</code>、<code>Vue3.x 面板</code>，对于有对应技术栈的开发者来说，选择对口的模板是最好的选择。但如果是一位平时只使用 Cocos Creator，不太接触其他框架的小白来说（比如我），不妨选择最新的技术栈，这样能通过学习插件开发的同时，了解下 Vue3 的基础概念（<del>如果以后不做 Cocos 了，方便快速转行</del>）。</p>

@@ -277,10 +277,14 @@
         
           <div class="truncate-text">
             
-              前言近期发布了一个 Cocos Creator 2.4.x 的自动化插件，想移植到 3.x 版本，但 扩展编辑器 官方文档 的教程让我这种小白一言难尽，尽管我刚开发完一款 2.x 的插件，3.x 也让我折腾了很久。
+              
+视频教程
+
+
+前言近期发布了一个 Cocos Creator 2.4.x 的自动化插件，想移植到 3.x 版本，但 扩展编辑器 官方文档 的教程让我这种小白一言难尽，尽管我刚开发完一款 2.x 的插件，3.x 也让我折腾了很久。
 首先得吐槽一下插件开发的官方文档，感觉不如 2.x 的文档，特别是 UI 组件 文档，感觉像是随便写的，虽然可以直接在 UI 组件面板 中看到代码，但示例代码也有很多坑。而 扩展改名 这篇文档更是重量级，真的会有人需要用到这篇文档吗？不过还是叠个甲，希望只是官方没有太多精力去维护插件开发的文档。
 那么废话就到此为止，本篇文章算是个技术总结，毕竟我也算是从零开始开发的插件，踩了许多坑，虽然没啥技术力，但入门应该是够了。下面将一步一步教大家通过 CC3.x + UI组件 + Vue3 的形式开发一个简单的可视化插件。
-为何选择 Vue3 模板开发？Cocos Creator 3.x 支持创建 HTML 面板、Vue2.x 面板、Vue3.x 面板，对于有对应技术栈的开发者来说，选择对口的模板是最好的选择。但如果是一位平时只使用 Cocos Creator，不太接触其他框架...
+为何选择 Vue3 模板开发？Cocos Creator 3.x 支持创建 HTML 面板、Vue2.x 面板、Vue3.x 面板，对于有对应技术栈的开发者来说，选择对口的模板是最好的选择。但如果是一位平时只使用 Cocos Creator，...
             
           </div>
         
@@ -290,12 +294,14 @@
     </div>
     
      
-    <a class="right-panel  non-pic  "
-      
+    <a class="right-panel  with-pic  "
+       style="background-image: url(/medias/cocos-extension-cover.jpg)" 
       href="/2024/04/01/cocos-extension/" 
     >
        
-      <i class="fa-solid fa-angle-right non-pic"></i>
+      <div class="overlay">
+        <i class="fa-solid fa-angle-right with-pic"></i>
+      </div>
        
     </a>
      

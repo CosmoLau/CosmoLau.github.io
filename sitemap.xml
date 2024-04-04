@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://cosmolau.top/docs/index.html</loc>
+    <loc>https://cosmolau.top/2024/04/04/cocos-docs-vitepress/</loc>
     
     <lastmod>2024-04-04</lastmod>
     
@@ -13,16 +13,16 @@
   <url>
     <loc>https://cosmolau.top/2024/04/01/cocos-extension/</loc>
     
-    <lastmod>2024-04-03</lastmod>
+    <lastmod>2024-04-04</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://cosmolau.top/2024/04/01/hello-world/</loc>
+    <loc>https://cosmolau.top/docs/index.html</loc>
     
-    <lastmod>2024-04-01</lastmod>
+    <lastmod>2024-04-04</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -56,7 +56,7 @@
   </url>
   
   <url>
-    <loc>https://cosmolau.top/404/index.html</loc>
+    <loc>https://cosmolau.top/404.html</loc>
     
     <lastmod>2024-03-31</lastmod>
     
@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>https://cosmolau.top/404.html</loc>
+    <loc>https://cosmolau.top/404/index.html</loc>
     
     <lastmod>2024-03-31</lastmod>
     
@@ -99,20 +99,27 @@
   </url>
   
   <url>
-    <loc>https://cosmolau.top/tags/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</loc>
+    <loc>https://cosmolau.top/tags/%E6%96%87%E6%A1%A3/</loc>
     <lastmod>2024-04-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cosmolau.top/tags/%E6%8C%87%E5%8D%97/</loc>
+    <loc>https://cosmolau.top/tags/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2024-04-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
 
+  
+  <url>
+    <loc>https://cosmolau.top/categories/%E5%88%86%E4%BA%AB/</loc>
+    <lastmod>2024-04-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
   <url>
     <loc>https://cosmolau.top/categories/%E6%95%99%E7%A8%8B/</loc>

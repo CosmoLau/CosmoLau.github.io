@@ -1,0 +1,1 @@
+import{_ as s,c as a,o as e,aP as t}from"./chunks/framework.BWCZuPYf.js";const k=JSON.parse('{"title":"docs-search","description":"","frontmatter":{},"headers":[],"relativePath":"README.md","filePath":"README.md"}'),i={name:"README.md"},n=t("",6),c=[n];function o(h,p,r,l,d,_){return e(),a("div",null,c)}const b=s(i,[["render",o]]);export{k as __pageData,b as default};

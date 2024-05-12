@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[6716],{7060:e=>{e.exports=JSON.parse('{"permalink":"/docs/oclif/zh/blog","page":1,"postsPerPage":10,"totalPages":2,"totalCount":12,"nextPage":"/docs/oclif/zh/blog/page/2","blogDescription":"\u9605\u8bfb\u6765\u81ea\u56e2\u961f\u7684 oclif \u535a\u5ba2\u6587\u7ae0","blogTitle":"oclif \u535a\u5ba2"}')}}]);

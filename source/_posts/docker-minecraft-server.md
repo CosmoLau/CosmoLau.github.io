@@ -103,7 +103,7 @@ white-list=false
 
 参数对应的功能可以在 [Minecraft WIKI](https://zh.minecraft.wiki/w/Server.properties) 中查看，按需修改对应的参数即可。
 
-修改完成后，需要重启一下 Docker 容器，参考 [Docker 常用命令](#docker-常用命令)。
+修改完成后，需要重启一下 Docker 容器，参考下文 `Docker 常用命令`。
 
 ## 常用参数
 
@@ -150,7 +150,7 @@ CONTAINER ID   IMAGE                        COMMAND                   CREATED   
 
 ```
 
-如果使用[快速部署](#快速部署)中的命令来创建 Docker 容器，通过 `docker ps -a` 查看到的内容中，`NAMES` 一项会比较长，此时可以重命名容器名：
+如果使用前文`快速部署`中的命令来创建 Docker 容器，通过 `docker ps -a` 查看到的内容中，`NAMES` 一项会比较长，此时可以重命名容器名：
 
 ```shell
 docker rename [当前容器名] [修改后的容器名]

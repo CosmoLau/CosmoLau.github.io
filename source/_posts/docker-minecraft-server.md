@@ -16,8 +16,12 @@ categories:
 ## 快速部署
 
 ```shell
-docker run -d -it -p 25565:25565 -e EULA=TRUE itzg/minecraft-server
+docker run -d -it --name mc -p 25565:25565 -e EULA=TRUE -v /home/minecraft/data:/data itzg/minecraft-server
 ```
+
+`--name mc`：设置容器名，此处设置为 `mc`，方便下文使用。
+
+`-v /home/minecraft/data:/data`：将容器数据卷挂载到 `/home/minecraft/data` 路径下，可自行修改，此处方便下文使用。
 
 执行以上命令后，等待 docker 部署完成，最基础的 Minecraft 服务器就已经搭建成功了，此时已经可以尝试通过 Minecraft 的 `多人游戏` 连接到服务器公网 IP 了。
 
@@ -26,13 +30,11 @@ docker run -d -it -p 25565:25565 -e EULA=TRUE itzg/minecraft-server
 
 ## 修改服务器参数
 
-服务器搭建完成后，如果需要修改参数，需要找到 Minecraft 服务器对应的 Docker 数据卷（volume）目录，例如我在 `CentOS` 的路径为：
+服务器搭建完成后，如果需要修改参数，需要找到 Minecraft 服务器对应的 Docker 数据卷（volume）挂载的路径，如果使用了上文的快速部署命令，路径应该为 `/home/minecraft/data`，切换到改路径下：
 
-```text
-/var/lib/docker/volumes/2a1cf485ac30932c80056dc667df3fd5056b0615fb8b8d16b3b3aba4f578ba5e/_data/
+```shell
+cd /home/minecraft/data
 ```
-
-> _提示_：不同系统的路径可能不相同，善用搜索工具查看对应的路径位置。
 
 找到路径下的 `server.properties` 文件，内容大致如下：
 
@@ -147,13 +149,6 @@ docker ps -a
 # 输出内容如下
 CONTAINER ID   IMAGE                        COMMAND                   CREATED        STATUS                       PORTS                                           NAMES
 19bb186f2584   itzg/minecraft-server        "/start"                  16 hours ago   Up About an hour (healthy)   0.0.0.0:25565->25565/tcp, :::25565->25565/tcp   mc
-
-```
-
-如果使用前文`快速部署`中的命令来创建 Docker 容器，通过 `docker ps -a` 查看到的内容中，`NAMES` 一项会比较长，此时可以重命名容器名：
-
-```shell
-docker rename [当前容器名] [修改后的容器名]
 ```
 
 重启 Docker 容器
@@ -185,7 +180,7 @@ docker start mc
 
 如果遇到 `暂时无法连接到登录验证服务器，请稍后再试`，检查一下是否修改过本机的 `hosts`，如果有修改，清理一遍重进就行。
 
-服务器建议 4G 内存起步，2G 支持 3、4 个人差不多就是极限了。如果想降低成本，各大云服务器平台时不时有 9.9 元/月的特价 2C2G 服务器，可以留意一下。
+服务器建议 4G 内存起步，2G 很容易炸掉，不推荐用来部署 Minecraft 服务器。
 
 ## 参考
 

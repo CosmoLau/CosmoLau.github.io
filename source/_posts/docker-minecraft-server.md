@@ -151,7 +151,7 @@ CONTAINER ID   IMAGE                        COMMAND                   CREATED   
 19bb186f2584   itzg/minecraft-server        "/start"                  16 hours ago   Up About an hour (healthy)   0.0.0.0:25565->25565/tcp, :::25565->25565/tcp   mc
 ```
 
-重启 Docker 容器
+重启 Docker 容器：
 
 ```shell
 # 使用容器名来重启，例如容器名为 mc
@@ -166,7 +166,7 @@ docker restart 19bb1
 docker stop mc
 ```
 
-启动 Docker 容器
+启动 Docker 容器：
 
 ```shell
 docker start mc

@@ -30,7 +30,7 @@ docker run -d -it --name mc -p 25565:25565 -e EULA=TRUE -v /home/minecraft/data:
 
 ## 修改服务器参数
 
-服务器搭建完成后，如果需要修改参数，需要找到 Minecraft 服务器对应的 Docker 数据卷（volume）挂载的路径，如果使用了上文的快速部署命令，路径应该为 `/home/minecraft/data`，切换到改路径下：
+服务器搭建完成后，如果需要修改参数，就要找到 Minecraft 服务器对应的 Docker 数据卷（volume）挂载的路径。如果使用了上文的快速部署命令，路径应该为 `/home/minecraft/data`，切换到改路径下：
 
 ```shell
 cd /home/minecraft/data
@@ -163,14 +163,12 @@ docker restart 19bb1
 暂停 Docker 容器：
 
 ```shell
-# 和重启容器类似
 docker stop mc
 ```
 
 启动 Docker 容器
 
 ```shell
-# 同上
 docker start mc
 ```
 

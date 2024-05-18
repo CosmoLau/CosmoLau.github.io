@@ -14,8 +14,8 @@ date: 2024-4-1 10:57:51
 | 名称                                                 | 描述               |仓库|
 | :---------------------------------------------------: | :----------------- |:-|
 | <a href="./oclif/zh/" target="_bland">oclif</a> | 开源 CLI 框架      |https://github.com/CosmoLau/oclif.github.io|
-| <a href="./husky/zh/" target="_bland">Husky</a> | Git 提交规范化工具 |https://github.com/CosmoLau/husky|
-| <a href="./cocos/" target="_bland">Cocos Creator</a>    | 国产游戏引擎，本文档为官方手册的 VitePress 移植版       |https://github.com/CosmoLau/cocos-docs-vitepress|
+| <a href="https://www.cosmolau.top/husky/zh/" target="_bland">Husky</a> | Git 提交规范化工具 |https://github.com/CosmoLau/husky|
+| <a href="https://cocos.cosmolau.top" target="_bland">Cocos Creator</a>    | 国产游戏引擎，本文档为官方手册的 VitePress 移植版       |https://github.com/CosmoLau/cocos-docs-vitepress|
 
 ## 游戏
 
